@@ -9,7 +9,7 @@ class Book extends BaseModel implements IModel
 {
     public $error;
 
-    private $count_page;
+    protected $count_page;
 
     public function __construct()
     {
@@ -30,13 +30,9 @@ class Book extends BaseModel implements IModel
 
     public function create(array $data)
     {
-        $this->setId();
-        $this->title = $data['title'];
-        $this->author = $data['author'];
-        $this->count_page = $data['count_page'];
-        $this->date_added = $data['date_added'];
-        $this->description = $data['description'];
+        $this->validate($data);
         if (empty($this->error)) {
+            $this->setId();
             $this->file->new_data = $this;
             return $this->file->save(); 
         }
@@ -46,12 +42,10 @@ class Book extends BaseModel implements IModel
     public function update(int $id, array $data)
     {
         $model = new self();
-        $model->id = $id;
-        $model->title = $data['title'];
-        $model->author = $data['author'];
-        $model->count_page = $data['count_page'];
-        $model->date_added = $data['date_added'];
-        $model->description = $data['description'];
+        $model->validate($data);
+        if (empty($this->error)) {
+            $model->id = $id;
+        }
 
         $key = $this->getOneById($id);
 
@@ -67,7 +61,7 @@ class Book extends BaseModel implements IModel
     {
         $key = $this->getOneById($id);
         unset($this->file->data_list[$key]);
-        return $this->file->save(); 
+        return $this->file->save();
     }
 
     public function index()

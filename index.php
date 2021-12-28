@@ -45,10 +45,12 @@ if (isset($_GET['route'])) {
     }
 }
 
-$article = new Article;
-$article->create([
-    'title' => 'New Title',
-    'author' => 'New Author',
-    'date_added' => 'Date Added55',
-    'description' => 'Description55',
-]);
+// $article = new Article;
+// $article->update(11, [
+//     'title' => 'New Title',
+//     'author' => 'New Author',
+//     'date_added' => 'Date Added55',
+//     'description' => 'Description55',
+// ]);
+// $article->delete(1);
+// var_dump($article);
