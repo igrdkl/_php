@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 <?php
 namespace article;
 
 use models\admin\Article;
 
-$book = new Article();
+$article = new Article();
 
     if(isset($_POST['send'])){
         $data = array(
@@ -72,5 +71,3 @@ $book = new Article();
       </form>
     </body>
     </html>
-=======
->>>>>>> 3c9bef9bac2596f40779207d7c915fc86c59a971

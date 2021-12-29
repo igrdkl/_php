@@ -23,7 +23,7 @@ class Article extends BaseModel implements IModel
     
     public function create(array $data)
     {
-        //$this->title = $this->validateTitle($data['title']);
+        $this->title = $this->validateTitle($data['title']);
         $this->setId();
         $this->title = $data['title'];
         $this->author = $data['author'];

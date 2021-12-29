@@ -24,6 +24,17 @@ if (isset($_GET['route'])) {
             $array_list = $model->index();
             include_once('article/index.php');
             break;
+            case 'article_create':
+                $model = new Article();
+                if (isset($_GET['id']) && !empty($_GET['id'])) {
+                    if ($article = $model->view($_GET['id'])) {
+                        include_once('article/article_create.php');
+                    }
+                } 
+                $model = new Article();
+                $array_list = $model->index();
+                include_once('article/index.php');
+                break;
         case 'article_update':
             $model = new Article();
             if (isset($_GET['id']) && !empty($_GET['id'])) {
