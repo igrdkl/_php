@@ -9,11 +9,11 @@ abstract class BaseModel
     protected File $file;
 
     protected int $id;
-    protected string $title;
-    protected string $author;
-    protected string $date_added;
-    protected string $description;
-    protected string $image;
+    protected $title;
+    protected $author;
+    protected $date_added;
+    protected $description;
+    protected $image;
 
     public $error = array();
    
@@ -84,31 +84,6 @@ abstract class BaseModel
             $this->error['title'] = 'Введите заголовок';
         }
     }
-    protected function validateAuthor($author)
-    {
-        if (isset($author) && !empty($author)) {
-            if(strlen($author) > 5 && strlen($author) < 70) {
-              $this->author = $author;                
-            } else {
-              $this->error['author'] = 'Не подходящая длина заголовка (5<...<70)';
-            }
-        } else {
-            $this->error['author'] = 'Введите Автора';
-        }
-    }
-
-    protected function validateCountPage($count_pages)
-    {
-        if (isset($count_page) && !empty($count_page)) {
-            if(empty($count_page)) {
-              $this->count_page = $count_page;                
-            } else {
-              $this->error['count_page'] = 'Кількість сторінок введіть';
-            }
-        } else {
-            $this->error['count_page'] = 'Кількість сторінок введіть';
-          }
-    }
 
     protected function validateDateAdded($date_added)
     {
@@ -130,6 +105,27 @@ abstract class BaseModel
           } else {
             $this->error['description'] = 'Введите описание';
           }
+    }
+
+    protected function validate($data)
+    {
+        foreach($data as $property=>$value){
+            $this->validateItem($property, $value);
+        }
+    }
+
+    protected function validateItem($property, $value)
+    {
+        $a = array_map("ucfirst", explode( "_", $property));
+        $validateMethod = "validate".implode($a);
+
+        if (method_exists($this, $validateMethod)) {
+            if ($this->$validateMethod($value)) {
+                $this->$property = $value;
+            }
+        } else {
+            $this->$property = $value; 
+        }
     }
 
 }

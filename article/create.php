@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 namespace article;
 
@@ -71,3 +72,5 @@ $book = new Article();
       </form>
     </body>
     </html>
+=======
+>>>>>>> 3c9bef9bac2596f40779207d7c915fc86c59a971
